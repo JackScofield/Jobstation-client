@@ -14,10 +14,9 @@ import LeftSidebar from "./GroupChat/LeftSidebar";
 import ChatPage from "./GroupChat/ChatPage";
 
 import "./GroupChat/Chat.css";
+import {CHAT_URL} from "../context/Const";
 
-const ENDPOINT = "https://it4-chat.onrender.com/";
-
-const socket = io(ENDPOINT);
+const socket = io(CHAT_URL);
 
 const Chat = () => {
   const { state } = useLocation();

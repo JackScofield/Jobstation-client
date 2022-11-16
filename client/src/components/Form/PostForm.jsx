@@ -1,24 +1,24 @@
 import React, {useContext, useState} from "react";
 import {Box, Button, Paper, TextField, Typography} from "@mui/material";
-import FileBase from 'react-file-base64';
-import {useDispatch} from "react-redux";
-import {createPost} from "../../actions/posts";
 import {useNavigate} from "react-router-dom";
 import {isLoggedIn, UserContext} from "../../context/User";
-
+import axios from "axios";
+import { API_URL } from "../../context/Const";
 const PostForm = ({formType}) => {
 
     const {user} = useContext(UserContext);
     const navigate = useNavigate();
     const creator = user._id;
     const [postData,setPostData] = useState({creator:creator,title:'',tags:'',message:'',selectFile:''})
-    const dispatch = useDispatch();
 
     if (!isLoggedIn(user)) return;
     const handleSubmit = (e) =>{
 
         e.preventDefault();
-        dispatch(createPost(postData));
+
+        axios.post(`${API_URL}/discuss/create`,postData).then((res) => console.log(res) ,(err)=>{
+            console.log(err);
+        })
 
         navigate('/discussion');
 
