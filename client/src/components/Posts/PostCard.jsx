@@ -24,7 +24,7 @@ export default function RecipeReviewCard({post}) {
     const navigate = useNavigate();
     const avatarSrc = `https://ui-avatars.com/api/?name=${post.creatorName}&background=random&bold=true`;
     const newPage = `/discussion/post/${post._id}`;
-    const shareLink = `localhost:3000/discussion/post/${post._id}`;
+    const shareLink = `${API_URL}/discussion/post/${post._id}`;
     const handleOnePost = () => {
         navigate(newPage);
         window.history.go(0);
