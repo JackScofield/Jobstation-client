@@ -98,7 +98,7 @@ export default function Post(props) {
             </div>
             <div className='d-flex flex-row align-items-center my-2 justify-content-start'>
                 tags:<strong className="text-muted">{postTags.map((tag) => {
-                    const newPage = `/discussion/search-result/${tag}`;
+                    const newPage = `${API_URL}/discussion/search-result/${tag}`;
                 return <Link href={newPage} className="btn btn-outline-secondary btn-sm mx-1" underline="none">
                     {tag}
                 </Link>

@@ -13,6 +13,7 @@ import MuiAlert from '@mui/material/Alert';
 import {useNavigate} from "react-router-dom";
 import {Snackbar} from "@mui/material";
 import MarkUnreadChatAltOutlinedIcon from '@mui/icons-material/MarkUnreadChatAltOutlined';
+import {API_URL} from "../../context/Const";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -26,7 +27,7 @@ export default function RecipeReviewCard({post}) {
     const shareLink = `localhost:3000/discussion/post/${post._id}`;
     const handleOnePost = () => {
         navigate(newPage);
-        // window.history.go(0);
+        window.history.go(0);
     };
 
     const handleClose = () => {
