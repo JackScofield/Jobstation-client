@@ -26,7 +26,7 @@ export default function RecipeReviewCard({post}) {
     const shareLink = `localhost:3000/discussion/post/${post._id}`;
     const handleOnePost = () => {
         navigate(newPage);
-        window.history.go(0);
+        // window.history.go(0);
     };
 
     const handleClose = () => {

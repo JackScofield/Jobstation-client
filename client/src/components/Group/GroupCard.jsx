@@ -19,7 +19,7 @@ export default function GroupCard({ group, joined = false, listname = "" }) {
             body: JSON.stringify(group_n_user),
         }).then((res) => console.log(res));
 
-        window.history.go(0);
+        // window.history.go(0);
         // navigate("/group");
     };
 
@@ -33,8 +33,9 @@ export default function GroupCard({ group, joined = false, listname = "" }) {
             },
             body: JSON.stringify(group_n_user),
         }).then((res) => console.log(res));
-        if (listname === "recommended") window.history.go(0);
-        else navigate("/group");
+        // if (listname === "recommended") window.history.go(0);
+        // else navigate("/group");
+        navigate("/group");
     };
 
     return (

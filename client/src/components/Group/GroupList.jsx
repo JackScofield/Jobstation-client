@@ -70,7 +70,7 @@ export default function GroupList({ listName, groups = [], search = false }) {
         })
             .then((res) => res.json())
 
-        window.history.go(0);
+        // window.history.go(0);
 
     };
 
