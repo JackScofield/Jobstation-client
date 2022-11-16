@@ -83,6 +83,8 @@ export default function Profile({ profile }) {
             </div>
         );
     })
+    const avatarUrl = `https://ui-avatars.com/api/?name=${user.username}&background=random&bold=true`;
+
     return (
         <section style={{ backgroundColor: '#eee' }}>
             <MDBContainer className="py-5">
@@ -100,7 +102,7 @@ export default function Profile({ profile }) {
                         <MDBCard className="mb-4">
                             <MDBCardBody className="text-center">
                                 <MDBCardImage
-                                    src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
+                                    src={avatarUrl}
                                     alt="avatar"
                                     className="rounded-circle"
                                     style={{ width: '150px' }}
