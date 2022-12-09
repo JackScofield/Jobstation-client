@@ -39,6 +39,8 @@ export default function Profile({ profile }) {
     const [varyingEmail, setVaryingEmail] = useState('');
     const [tag, setTag] = useState([]);
     const [error, setError] = useState('');
+
+    const avatarSrc = `https://ui-avatars.com/api/?name=${user.username}&background=random&bold=true`;
     const handleUpdate = async () => {
         let newUser = user;
         Object.assign(newUser, {username: varyingUserName});
@@ -83,8 +85,6 @@ export default function Profile({ profile }) {
             </div>
         );
     })
-    const avatarUrl = `https://ui-avatars.com/api/?name=${user.username}&background=random&bold=true`;
-
     return (
         <section style={{ backgroundColor: '#eee' }}>
             <MDBContainer className="py-5">
@@ -98,11 +98,11 @@ export default function Profile({ profile }) {
                 </MDBRow>
 
                 <MDBRow>
-                    <MDBCol lg="4">
+                    <MDBCol lg="4" class="vh-10">
                         <MDBCard className="mb-4">
                             <MDBCardBody className="text-center">
                                 <MDBCardImage
-                                    src={avatarUrl}
+                                    src={avatarSrc}
                                     alt="avatar"
                                     className="rounded-circle"
                                     style={{ width: '150px' }}
@@ -110,16 +110,16 @@ export default function Profile({ profile }) {
                                 
                                 <div className="d-flex justify-content-center mb-2">
                                     {/* <MDBBtn>Edit</MDBBtn> */}
-                                    <MDBBtn
+                                    <button type="button" class="btn btn-outline-primary"
                                         onClick={() => {
-                                            setVaryingState('oldUsername');
+                                            setVaryingState('');
                                             setVaryingModal(!varyingModal);
                                             setVaryingUserName(profile.username);
                                             setVaryingEmail(profile.email);
                                         }}
                                     >
-                                        Edit
-                                    </MDBBtn>
+                                        Edit Profile
+                                    </button>
                                     <MDBModal show={varyingModal} setShow={setVaryingModal} tabIndex='-1'>
                                         <MDBModalDialog>
                                             <MDBModalContent>
@@ -130,24 +130,26 @@ export default function Profile({ profile }) {
                                                 <MDBModalBody>
                                                     <form>
                                                         <div className='mb-3'>
+                                                            Username
                                                             {varyingModal && (
                                                                 <MDBInput
                                                                     value={varyingUserName}
                                                                     // onChange={onChangeUserName}
                                                                     onChange={e => setVaryingUserName(e.target.value)}
                                                                     labelClass='col-form-label'
-                                                                    label='Username:'
+                                                                    // label='Username:'
                                                                 />
                                                             )}
                                                         </div>
                                                         <div className='mb-3'>
+                                                            Email
                                                             {varyingModal && (
                                                                 <MDBInput
                                                                     value={varyingEmail}
                                                                     // onChange={onChangeEmail}
                                                                     onChange={e => setVaryingEmail(e.target.value)}
                                                                     labelClass='col-form-label'
-                                                                    label='Email:'
+                                                                    // label='Email:'
                                                                 />
                                                             )}
                                                         </div>
@@ -160,10 +162,10 @@ export default function Profile({ profile }) {
                                                     </form>
                                                 </MDBModalBody>
                                                 <MDBModalFooter>
-                                                    <MDBBtn color='secondary' onClick={() => setVaryingModal(!varyingModal)}>
-                                                        Close
-                                                    </MDBBtn>
-                                                    <MDBBtn onClick={() => handleUpdate()}>Save changes </MDBBtn>
+                                                    <button type="button" class="btn btn-outline-secondary" onClick={() => setVaryingModal(!varyingModal)}>
+                                                        Cancel
+                                                    </button>
+                                                    <button type="button" class="btn btn-outline-success" onClick={() => handleUpdate()}>Save changes </button>
                                                 </MDBModalFooter>
                                             </MDBModalContent>
                                         </MDBModalDialog>
@@ -175,7 +177,7 @@ export default function Profile({ profile }) {
 
                         
                     </MDBCol>
-                    <MDBCol lg="8">
+                    <MDBCol lg="8" class="vh-10">
                         <MDBCard className="mb-4">
                             <MDBCardBody>
                                 <MDBRow>
@@ -198,7 +200,7 @@ export default function Profile({ profile }) {
                                 <hr />
                                 <MDBRow>
                                     <MDBCol sm="3">
-                                        <MDBCardText>IntersestedArea</MDBCardText>
+                                        <MDBCardText>Intersested Area</MDBCardText>
                                     </MDBCol>
                                     <MDBCol sm="9">
                                         

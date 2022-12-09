@@ -5,6 +5,7 @@ import {isLoggedIn, UserContext} from "../../../context/User";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import ThumbUpOffAltOutlinedIcon from "@mui/icons-material/ThumbUpOffAltOutlined";
+import ThumbUpRoundedIcon from '@mui/icons-material/ThumbUpRounded';
 import {CommentList} from "./CommentList";
 import {API_URL} from "../../../context/Const";
 
@@ -13,8 +14,9 @@ export default function Post(props) {
     const { postId } = useParams();
     const [post, setPost] = useState("");
     const [isUser,setIsUser] = useState(true);
+    const [liked,setLiked] = useState(false);
     const navigate = useNavigate();
-    console.log(postId)
+
 
     useEffect(()=>{
         fetch(`${API_URL}/discuss/post/${postId}`)
@@ -40,6 +42,14 @@ export default function Post(props) {
         else{
             setIsUser(false);
         }
+
+        console.log(post.likedPeople);
+        for(let i=0;i<post.likeCount;i++){
+            if(post.likedPeople[i]===user._id){
+                setLiked(true);
+                break;
+            }
+        }
     },[post])
 
     const handleEdit = (event) => {
@@ -56,13 +66,27 @@ export default function Post(props) {
     };
 
     const handleLike = async () => {
-        await fetch(`${API_URL}/discuss/like/post/${postId}/user/${user._id}`,{
-            method: "PATCH",
-        }).
+        console.log("current like status",liked)
+        if(liked){
+            await fetch(`${API_URL}/discuss/dislike/post/${postId}/user/${user._id}`,{
+                method: "PATCH",
+            }).
             then((res) => res.json());
-        setPost(prePost =>{
-            return {...prePost, likeCount: prePost.likeCount+1}
-        })
+            setPost(prePost =>{
+                return {...prePost, likeCount: prePost.likeCount-1}
+            })
+            setLiked(false);
+        }
+        else{
+            await fetch(`${API_URL}/discuss/like/post/${postId}/user/${user._id}`,{
+                method: "PATCH",
+            }).
+            then((res) => res.json());
+            setPost(prePost =>{
+                return {...prePost, likeCount: prePost.likeCount+1}
+            })
+            setLiked(true);
+        }
     }
 
     return (
@@ -93,19 +117,24 @@ export default function Post(props) {
             <div className="text-muted small mb-4">
                 <div className="d-flex flex-row align-items-center my-2 justify-content-start">
                     <strong>{post.creatorName}</strong>
-                    <div className='text-muted ms-auto'>last updated {`${post.createdAt}`}</div>
+                    <div className='text-muted ms-auto'>Created at {post.createdAt?.slice(0,16)}</div>
                 </div>
             </div>
             <div className='d-flex flex-row align-items-center my-2 justify-content-start'>
                 tags:<strong className="text-muted">{postTags.map((tag) => {
-                    const newPage = `${API_URL}/discussion/search-result/${tag}`;
-                return <Link className="btn btn-outline-secondary btn-sm mx-1" underline="none">
+                    const newPage = `/discussion/search-result/${tag}`;
+                return <Link href={newPage} className="btn btn-outline-secondary btn-sm mx-1" underline="none">
                     {tag}
                 </Link>
             })}
             </strong>
                 <IconButton className='ms-auto' aria-label="add to favorites" onClick={handleLike}>
-                    <ThumbUpOffAltOutlinedIcon sx={{color:'pink'}}/>
+                    {
+                        liked ?
+                            <ThumbUpRoundedIcon sx={{color:'pink'}}/>
+                        :
+                            <ThumbUpOffAltOutlinedIcon sx={{color:'pink'}}/>
+                    }
                 </IconButton>
                 <span> {post.likeCount} Likes </span>
             </div>

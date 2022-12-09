@@ -13,7 +13,6 @@ import MuiAlert from '@mui/material/Alert';
 import {useNavigate} from "react-router-dom";
 import {Snackbar} from "@mui/material";
 import MarkUnreadChatAltOutlinedIcon from '@mui/icons-material/MarkUnreadChatAltOutlined';
-import {API_URL} from "../../context/Const";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -24,7 +23,7 @@ export default function RecipeReviewCard({post}) {
     const navigate = useNavigate();
     const avatarSrc = `https://ui-avatars.com/api/?name=${post.creatorName}&background=random&bold=true`;
     const newPage = `/discussion/post/${post._id}`;
-    const shareLink = `${API_URL}/discussion/post/${post._id}`;
+    const shareLink = `https://jobstation.netlify.app/discussion/post/${post._id}`;
     const handleOnePost = () => {
         navigate(newPage);
         window.history.go(0);
@@ -49,7 +48,7 @@ export default function RecipeReviewCard({post}) {
                     </IconButton>
                 }
                 title={post.title}
-                subheader={post.createdAt}
+                subheader={post.createdAt?.slice(0,16)}
                 onClick={handleOnePost}
 
             />
