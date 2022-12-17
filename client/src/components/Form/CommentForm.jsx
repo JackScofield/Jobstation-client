@@ -20,8 +20,7 @@ const CommentForm = ({postId}) => {
         // const { postId, userId, message } = req.body;
         axios.post(`${API_URL}/discuss/comment`,newComment).then((res) => console.log(res) ,(err)=>{
             console.log(err);
-        })
-        window.history.go(0);
+        }).then(()=>window.history.go(0));
     };
 
     const onSubmit = (e) => {
